@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>REST API Authentication Learning Presentation</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Inter", -apple-system, BlinkMacSystemFont,
+                    sans-serif;
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                min-height: 100vh;
+                color: #2c3e50;
+                overflow-x: hidden;
+            }
+
+            .presentation-container {
+                position: relative;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+
+            .slide {
+                display: none;
+                background: white;
+                border-radius: 15px;
+                padding: 50px;
+                max-width: 1000px;
+                width: 100%;
+                min-height: 600px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                position: relative;
+                animation: fadeIn 0.5s ease-out;
+            }
+
+            .slide.active {
+                display: block;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .slide-counter {
+                position: absolute;
+                top: 20px;
+                right: 25px;
+                background: #3498db;
+                color: white;
+                padding: 6px 12px;
+                border-radius: 15px;
+                font-size: 13px;
+                font-weight: 500;
+            }
+
+            .student-info {
+                position: absolute;
+                top: 20px;
+                left: 25px;
+                color: #7f8c8d;
+                font-size: 14px;
+            }
+
+            h1 {
+                color: #2c3e50;
+                font-size: 2.8rem;
+                font-weight: 600;
+                margin-bottom: 15px;
+                line-height: 1.2;
+                text-align: center;
+            }
+
+            .course-info {
+                text-align: center;
+                color: #34495e;
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+            }
+
+            .submission-info {
+                text-align: center;
+                background: #ecf0f1;
+                padding: 20px;
+                border-radius: 10px;
+                margin: 30px 0;
+                border-left: 4px solid #3498db;
+            }
+
+            h2 {
+                color: #2c3e50;
+                font-size: 2rem;
+                font-weight: 600;
+                margin-bottom: 25px;
+                border-bottom: 2px solid #3498db;
+                padding-bottom: 10px;
+            }
+
+            h3 {
+                color: #34495e;
+                font-size: 1.3rem;
+                font-weight: 500;
+                margin: 20px 0 15px 0;
+            }
+
+            .learning-objective {
+                background: #e8f4fd;
+                border-left: 4px solid #3498db;
+                padding: 20px;
+                margin: 20px 0;
+                border-radius: 5px;
+            }
+
+            .learning-objective h4 {
+                color: #2980b9;
+                margin-bottom: 10px;
+            }
+
+            ul {
+                margin: 15px 0;
+                padding-left: 0;
+            }
+
+            li {
+                margin: 12px 0;
+                padding-left: 25px;
+                position: relative;
+                font-size: 1rem;
+                line-height: 1.6;
+                list-style: none;
+            }
+
+            li::before {
+                content: "•";
+                position: absolute;
+                left: 0;
+                color: #3498db;
+                font-weight: bold;
+                font-size: 1.2rem;
+            }
+
+            .nested-list li::before {
+                content: "◦";
+                color: #7f8c8d;
+            }
+
+            .code-demonstration {
+                background: #2c3e50;
+                color: #ecf0f1;
+                padding: 25px;
+                border-radius: 8px;
+                font-family: "Fira Code", "Courier New", monospace;
+                margin: 20px 0;
+                overflow-x: auto;
+                position: relative;
+            }
+
+            .code-demonstration::before {
+                content: "Code Implementation";
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                font-size: 12px;
+                color: #95a5a6;
+            }
+
+            .code-demonstration pre {
+                margin: 0;
+                line-height: 1.5;
+            }
+
+            .keyword {
+                color: #e74c3c;
+            }
+            .string {
+                color: #2ecc71;
+            }
+            .method {
+                color: #f39c12;
+            }
+            .comment {
+                color: #95a5a6;
+                font-style: italic;
+            }
+
+            .understanding-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 25px 0;
+                background: white;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .understanding-table th {
+                background: #34495e;
+                color: white;
+                padding: 15px;
+                font-weight: 500;
+                text-align: left;
+            }
+
+            .understanding-table td {
+                padding: 12px 15px;
+                border-bottom: 1px solid #ecf0f1;
+            }
+
+            .understanding-table tr:nth-child(even) {
+                background: #f8f9fa;
+            }
+
+            .key-learning {
+                background: #fff3cd;
+                border: 1px solid #ffeaa7;
+                border-radius: 8px;
+                padding: 20px;
+                margin: 20px 0;
+            }
+
+            .key-learning h4 {
+                color: #856404;
+                margin-bottom: 10px;
+            }
+
+            .practical-example {
+                background: #d1ecf1;
+                border: 1px solid #bee5eb;
+                border-radius: 8px;
+                padding: 20px;
+                margin: 20px 0;
+            }
+
+            .practical-example h4 {
+                color: #0c5460;
+                margin-bottom: 10px;
+            }
+
+            .navigation {
+                position: fixed;
+                bottom: 25px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 15px;
+                z-index: 1000;
+            }
+
+            .nav-btn {
+                background: white;
+                border: 2px solid #3498db;
+                color: #3498db;
+                padding: 12px 24px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-btn:hover:not(:disabled) {
+                background: #3498db;
+                color: white;
+            }
+
+            .nav-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .progress-indicator {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                height: 3px;
+                background: #3498db;
+                transition: width 0.3s ease;
+                z-index: 1000;
+            }
+
+            .conclusion-section {
+                text-align: center;
+                padding: 40px 0;
+            }
+
+            .reflection-box {
+                background: #f8f9fa;
+                border: 2px dashed #6c757d;
+                border-radius: 10px;
+                padding: 30px;
+                margin: 30px 0;
+                text-align: left;
+            }
+
+            .reflection-box h4 {
+                color: #495057;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+
+            @media (max-width: 768px) {
+                .slide {
+                    padding: 30px 20px;
+                    margin: 10px;
+                }
+
+                h1 {
+                    font-size: 2.2rem;
+                }
+                h2 {
+                    font-size: 1.6rem;
+                }
+
+                .navigation {
+                    bottom: 15px;
+                    gap: 10px;
+                }
+
+                .nav-btn {
+                    padding: 10px 16px;
+                    font-size: 14px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="progress-indicator" id="progressBar"></div>
+
+        <div class="presentation-container">
+            <!-- Slide 1: Title & Introduction -->
+            <div class="slide active" id="slide-1">
+                <div class="slide-counter">1 / 9</div>
+                <div class="student-info">Learning Presentation</div>
+                <h1>REST API Authentication Methods</h1>
+                <div class="course-info">
+                    Basic Authentication vs OAuth 2.0 in Rest Assured
+                </div>
+                <div class="submission-info">
+                    <p>
+                        <strong>What I've Learned:</strong> Understanding and
+                        implementing different authentication mechanisms for
+                        secure API testing
+                    </p>
+                    <p>
+                        <strong>Framework Used:</strong> Rest Assured for Java
+                        API Testing
+                    </p>
+                    <p>
+                        <strong>Key Focus:</strong> Practical implementation and
+                        security considerations
+                    </p>
+                </div>
+                <div class="learning-objective">
+                    <h4>My Learning Journey Covers:</h4>
+                    <ul>
+                        <li>
+                            Understanding authentication fundamentals in REST
+                            APIs
+                        </li>
+                        <li>
+                            Implementing Basic Authentication with Rest Assured
+                        </li>
+                        <li>
+                            Working with OAuth 2.0 token-based authentication
+                        </li>
+                        <li>Comparing security implications and use cases</li>
+                        <!-- <li>Best practices for secure API testing</li> -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 2: Understanding Authentication Fundamentals -->
+            <div class="slide" id="slide-2">
+                <div class="slide-counter">2 / 9</div>
+                <h2>What I Understood About API Authentication</h2>
+                <div class="key-learning">
+                    <h4>Core Concept Learned:</h4>
+                    <p>
+                        Authentication in REST APIs is the process of verifying
+                        the identity of a client making a request to ensure only
+                        authorized users can access protected resources.
+                    </p>
+                </div>
+                <h3>Why Authentication is Essential:</h3>
+                <ul>
+                    <li>
+                        <strong>Security:</strong> Protects sensitive data from
+                        unauthorized access
+                    </li>
+                    <li>
+                        <strong>Access Control:</strong> Ensures users only
+                        access resources they're permitted to
+                    </li>
+                    <li>
+                        <strong>Audit Trail:</strong> Tracks who accessed what
+                        resources and when
+                    </li>
+                    <li>
+                        <strong>Rate Limiting:</strong> Controls usage based on
+                        authenticated user identity
+                    </li>
+                </ul>
+                <div class="practical-example">
+                    <h4>Real-World Application I Understood:</h4>
+                    <p>
+                        Just like showing your ID card to enter a building, APIs
+                        need to verify who you are before granting access to
+                        their resources. This prevents unauthorized users from
+                        accessing private data or performing restricted actions.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 3: Basic Authentication - What I Learned -->
+            <div class="slide" id="slide-3">
+                <div class="slide-counter">3 / 9</div>
+                <h2>Basic Authentication - My Understanding</h2>
+                <div class="key-learning">
+                    <h4>What I Learned:</h4>
+                    <p>
+                        Basic Authentication is the simplest form of HTTP
+                        authentication where credentials (username:password) are
+                        Base64 encoded and sent in the Authorization header with
+                        every request.
+                    </p>
+                </div>
+                <h3>Key Characteristics I Identified:</h3>
+                <ul>
+                    <li>
+                        <strong>Encoding Method:</strong> Uses Base64 encoding
+                        (not encryption!)
+                    </li>
+                    <li>
+                        <strong>Header Format:</strong> Authorization: Basic
+                        [encoded_credentials]
+                    </li>
+                    <!-- <li><strong>Stateless:</strong> Credentials sent with every request</li> -->
+                    <li>
+                        <strong>Security Requirement:</strong> Must use HTTPS to
+                        prevent credential theft
+                    </li>
+                </ul>
+                <div class="practical-example">
+                    <h4>My Understanding of the Process:</h4>
+                    <ul class="nested-list">
+                        <li>Client encodes "username:password" in Base64</li>
+                        <li>
+                            Adds "Authorization: Basic [encoded_string]" header
+                        </li>
+                        <li>Server decodes and verifies credentials</li>
+                        <li>Access granted if credentials are valid</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 4: Basic Auth Implementation I Learned -->
+            <div class="slide" id="slide-4">
+                <div class="slide-counter">4 / 9</div>
+                <h2>Basic Auth Implementation in Rest Assured</h2>
+                <div class="key-learning">
+                    <h4>What I Practiced:</h4>
+                    <p>
+                        I learned how to implement Basic Authentication in Rest
+                        Assured using built-in methods and understand the
+                        difference between standard and preemptive
+                        authentication.
+                    </p>
+                </div>
+                <div class="code-demonstration">
+                    <pre><span class="comment">// Standard Basic Authentication (waits for 401 challenge)</span>
+<span class="comment">// This approach follows the traditional HTTP Basic Authentication flow.</span>
+<span class="comment">// When the request is sent without authentication headers, the server responds with a 401 Unauthorized status.</span>
+<span class="comment">// The client then resends the request, this time including the credentials (username and password).</span>
+<span class="comment">// This method is useful for servers that expect authentication only after explicitly challenging the client.</span>
+<span class="method">given</span>()
+    .<span class="method">auth</span>()
+    .<span class="method">basic</span>(<span class="string">"postman"</span>, <span class="string">"password"</span>)
+    .<span class="method">when</span>()
+    .<span class="method">get</span>(<span class="string">"https://postman-echo.com/basic-auth"</span>)
+    .<span class="method">then</span>()
+    .<span class="method">statusCode</span>(<span class="string">200</span>)
+    .<span class="method">body</span>(<span class="string">"authenticated"</span>, <span class="method">equalTo</span>(<span class="keyword">true</span>));
+
+<span class="comment">// Preemptive Authentication (sends credentials immediately)</span>
+<span class="comment">// Unlike standard authentication, preemptive authentication sends the credentials in the initial request itself.</span>
+<span class="comment">// This eliminates the 401 challenge-response cycle, making authentication faster in cases where the server expects credentials right away.</span>
+<span class="comment">// This is particularly useful for APIs that require authentication for all requests without issuing an explicit challenge.</span>
+<span class="method">given</span>()
+    .<span class="method">auth</span>()
+    .<span class="method">preemptive</span>()
+    .<span class="method">basic</span>(<span class="string">"username"</span>, <span class="string">"password"</span>)
+    .<span class="method">when</span>()
+    .<span class="method">get</span>(<span class="string">"/secure-endpoint"</span>)
+    .<span class="method">then</span>()
+    .<span class="method">statusCode</span>(<span class="string">200</span>);</pre>
+                </div>
+                <div class="practical-example">
+                    <h4>Key Insight I Gained:</h4>
+                    <p>
+                        Using <code>preemptive()</code> sends credentials with
+                        the first request, avoiding the authentication challenge
+                        round-trip and improving performance.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 5: OAuth 2.0 - What I Learned -->
+            <div class="slide" id="slide-5">
+                <div class="slide-counter">5 / 9</div>
+                <h2>OAuth 2.0 - My Understanding</h2>
+                <div class="key-learning">
+                    <h4>What I Discovered:</h4>
+                    <p>
+                        OAuth 2.0 is an authorization framework that enables
+                        applications to obtain limited access to user accounts
+                        by using access tokens instead of user credentials.
+                    </p>
+                </div>
+                <h3>Core Concepts I Learned:</h3>
+                <ul>
+                    <li>
+                        <strong>Token-Based:</strong> Uses access tokens instead
+                        of passwords
+                    </li>
+                    <li>
+                        <strong>Delegated Authorization:</strong> Apps access
+                        resources on behalf of users
+                    </li>
+                    <li>
+                        <strong>Scoped Access:</strong> Tokens have specific
+                        permissions and limitations
+                    </li>
+                    <li>
+                        <strong>Time-Limited:</strong> Tokens expire and can be
+                        refreshed
+                    </li>
+                    <li>
+                        <strong>Revocable:</strong> Tokens can be invalidated
+                        without changing passwords
+                    </li>
+                </ul>
+                <div class="practical-example">
+                    <h4>Real-World Analogy I Understood:</h4>
+                    <p>
+                        OAuth is like a hotel key card - it gives you access to
+                        specific areas (scopes) for a limited time (expiration),
+                        and if lost, it can be deactivated without changing the
+                        master key (your password).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 6: OAuth Implementation I Practiced -->
+            <div class="slide" id="slide-6">
+                <div class="slide-counter">6 / 9</div>
+                <h2>OAuth 2.0 Implementation in Rest Assured</h2>
+                <div class="key-learning">
+                    <h4>Implementation Approach I Learned:</h4>
+                    <p>
+                        I learned how to use OAuth 2.0 Bearer tokens in Rest
+                        Assured and understand the token acquisition process.
+                    </p>
+                </div>
+                <div class="code-demonstration">
+                    <pre><span class="comment">// Using OAuth 2.0 Bearer Token</span>
+<span class="method">given</span>()
+    .<span class="method">auth</span>()
+    .<span class="method">oauth2</span>(<span class="string">"your_access_token_here"</span>)
+    .<span class="method">when</span>()
+    .<span class="method">get</span>(<span class="string">"https://api.github.com/user"</span>)
+    .<span class="method">then</span>()
+    .<span class="method">statusCode</span>(<span class="string">200</span>);
+
+<span class="comment">// Alternative method using header directly</span>
+<span class="method">given</span>()
+    .<span class="method">header</span>(<span class="string">"Authorization"</span>, <span class="string">"Bearer "</span> + accessToken)
+    .<span class="method">when</span>()
+    .<span class="method">get</span>(<span class="string">"/protected-resource"</span>)
+    .<span class="method">then</span>()
+    .<span class="method">statusCode</span>(<span class="string">200</span>);</pre>
+                </div>
+                <div class="practical-example">
+                    <h4>What I Observed:</h4>
+                    <p>
+                        The <code>.oauth2()</code> method automatically adds the
+                        "Bearer" prefix, making it cleaner than manually setting
+                        the Authorization header.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 7: Comparison Analysis I Conducted -->
+            <div class="slide" id="slide-7">
+                <div class="slide-counter">7 / 9</div>
+                <h2>Comparative Analysis - My Findings</h2>
+                <div class="key-learning">
+                    <h4>Analysis Framework I Used:</h4>
+                    <p>
+                        I compared both authentication methods across multiple
+                        dimensions to understand when to use each approach.
+                    </p>
+                </div>
+                <table class="understanding-table">
+                    <thead>
+                        <tr>
+                            <th>Comparison Factor</th>
+                            <th>Basic Authentication</th>
+                            <th>OAuth 2.0</th>
+                            <th>My Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Security Level</strong></td>
+                            <td>Moderate (credentials exposed)</td>
+                            <td>High (token-based)</td>
+                            <td>OAuth wins for security</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Implementation Complexity</strong></td>
+                            <td>Very Simple</td>
+                            <td>Complex (token management)</td>
+                            <td>Basic Auth for simplicity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Third-party Integration</strong></td>
+                            <td>Poor (shares credentials)</td>
+                            <td>Excellent (delegated access)</td>
+                            <td>OAuth essential for integrations</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Performance</strong></td>
+                            <td>Good (simple)</td>
+                            <td>Good (after token acquisition)</td>
+                            <td>Similar performance</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Use Case Suitability</strong></td>
+                            <td>Internal/Simple APIs</td>
+                            <td>Public/Complex APIs</td>
+                            <td>Context-dependent choice</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Slide 8: Token Acquisition Process I Learned -->
+            <div class="slide" id="slide-8">
+                <div class="slide-counter">8 / 9</div>
+                <h2>OAuth Token Acquisition - My Implementation</h2>
+                <div class="key-learning">
+                    <h4>Process I Understood:</h4>
+                    <p>
+                        I learned how to programmatically obtain OAuth tokens
+                        using the Client Credentials flow in Rest Assured.
+                    </p>
+                </div>
+                <div class="code-demonstration">
+                    <pre><span class="comment">// Client Credentials Flow Implementation</span>
+<span class="keyword">String</span> accessToken = <span class="method">given</span>()
+    .<span class="method">auth</span>()
+    .<span class="method">preemptive</span>()
+    .<span class="method">basic</span>(<span class="string">"client_id"</span>, <span class="string">"client_secret"</span>)
+    .<span class="method">formParam</span>(<span class="string">"grant_type"</span>, <span class="string">"client_credentials"</span>)
+    .<span class="method">formParam</span>(<span class="string">"scope"</span>, <span class="string">"read write"</span>)
+    .<span class="method">when</span>()
+    .<span class="method">post</span>(<span class="string">"https://oauth-server.com/token"</span>)
+    .<span class="method">then</span>()
+    .<span class="method">statusCode</span>(<span class="string">200</span>)
+    .<span class="method">extract</span>()
+    .<span class="method">jsonPath</span>()
+    .<span class="method">getString</span>(<span class="string">"access_token"</span>);
+
+<span class="comment">// Using the acquired token</span>
+<span class="method">given</span>()
+    .<span class="method">auth</span>()
+    .<span class="method">oauth2</span>(accessToken)
+    .<span class="method">when</span>()
+    .<span class="method">get</span>(<span class="string">"/api/protected-data"</span>);</pre>
+                </div>
+                <div class="practical-example">
+                    <h4>Key Learning:</h4>
+                    <p>
+                        Token acquisition involves authentication with client
+                        credentials, and the received token must be managed
+                        properly including handling expiration and refresh
+                        scenarios.
+                    </p>
+                    <br />
+                    <p>
+                        In RestAssured, token expiration and refresh scenarios
+                        can be handled by using a TokenManager class to store
+                        the token and track its expiry time. Before making API
+                        requests, check if the token is expired and refresh it
+                        if needed. If a request fails with a 401 Unauthorized,
+                        retry after refreshing the token. This ensures smooth
+                        authentication without manual intervention in every
+                        request.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 9: Conclusion & Reflection -->
+            <div class="slide" id="slide-9">
+                <div class="slide-counter">9 / 9</div>
+                <div class="conclusion-section">
+                    <h2>Learning Summary & Reflection</h2>
+                    <div class="key-learning">
+                        <h4>Key Takeaways from My Learning:</h4>
+                        <ul>
+                            <li>
+                                <strong>Basic Auth:</strong> Simple but requires
+                                HTTPS for security
+                            </li>
+                            <li>
+                                <strong>OAuth 2.0:</strong> More secure and
+                                flexible but complex to implement
+                            </li>
+                            <li>
+                                <strong>Rest Assured:</strong> Provides
+                                excellent support for both methods
+                            </li>
+                            <li>
+                                <strong>Context Matters:</strong> Choice depends
+                                on security requirements and use case
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- <div class="reflection-box">
+                        <h4>Personal Reflection on Learning Process</h4>
+                        <p><strong>What I found challenging:</strong> Understanding OAuth token lifecycle and proper token management was initially complex, but hands-on practice with Rest Assured made it clearer.</p>
+                        
+                        <p><strong>Most interesting discovery:</strong> The security implications of each method and how OAuth's token-based approach provides better security through delegation and limited scope.</p>
+                        
+                        <p><strong>Practical application:</strong> I can now confidently implement both authentication methods in API tests and choose the appropriate one based on security requirements.</p>
+                        
+                        <p><strong>Future learning goals:</strong> Explore advanced OAuth flows like Authorization Code flow and implement refresh token handling.</p>
+                    </div> -->
+
+                    <div class="practical-example">
+                        <h4>Thank You!</h4>
+                        <p>- Harikesh Kumar Sharma</p>
+                        <!-- <h4>Ready to Apply This Knowledge:</h4>
+                        <p>I'm now prepared to implement secure API testing strategies and can explain the trade-offs between different authentication methods to make informed architectural decisions.</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn">← Previous</button>
+            <button class="nav-btn" id="nextBtn">Next →</button>
+        </div>
+
+        <script>
+            const slides = document.querySelectorAll(".slide");
+            const totalSlides = slides.length;
+            let currentSlide = 0;
+
+            function updateProgressBar() {
+                const progress = ((currentSlide + 1) / totalSlides) * 100;
+                document.getElementById("progressBar").style.width =
+                    progress + "%";
+            }
+
+            function showSlide(index) {
+                if (index < 0 || index >= totalSlides) return;
+
+                slides[currentSlide].classList.remove("active");
+                slides[index].classList.add("active");
+                currentSlide = index;
+
+                updateNavigation();
+                updateProgressBar();
+            }
+
+            function updateNavigation() {
+                const prevBtn = document.getElementById("prevBtn");
+                const nextBtn = document.getElementById("nextBtn");
+
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === totalSlides - 1;
+
+                if (currentSlide === totalSlides - 1) {
+                    nextBtn.textContent = "Presentation Complete";
+                } else {
+                    nextBtn.textContent = "Next →";
+                }
+            }
+
+            // Navigation event listeners
+            document.getElementById("prevBtn").addEventListener("click", () => {
+                showSlide(currentSlide - 1);
+            });
+
+            document.getElementById("nextBtn").addEventListener("click", () => {
+                if (currentSlide < totalSlides - 1) {
+                    showSlide(currentSlide + 1);
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowRight" || e.key === " ") {
+                    e.preventDefault();
+                    showSlide(currentSlide + 1);
+                } else if (e.key === "ArrowLeft") {
+                    e.preventDefault();
+                    showSlide(currentSlide - 1);
+                }
+            });
+
+            // Initialize
+            updateNavigation();
+            updateProgressBar();
+        </script>
+    </body>
+</html>
