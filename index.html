@@ -347,7 +347,7 @@
         <div class="presentation-container">
             <!-- Slide 1: Title & Introduction -->
             <div class="slide active" id="slide-1">
-                <div class="slide-counter">1 / 9</div>
+                <div class="slide-counter">1 / 10</div>
                 <div class="student-info">Learning Presentation</div>
                 <h1>REST API Authentication Methods</h1>
                 <div class="course-info">
@@ -389,7 +389,7 @@
 
             <!-- Slide 2: Understanding Authentication Fundamentals -->
             <div class="slide" id="slide-2">
-                <div class="slide-counter">2 / 9</div>
+                <div class="slide-counter">2 / 10</div>
                 <h2>What I Understood About API Authentication</h2>
                 <div class="key-learning">
                     <h4>Core Concept Learned:</h4>
@@ -431,7 +431,7 @@
 
             <!-- Slide 3: Basic Authentication - What I Learned -->
             <div class="slide" id="slide-3">
-                <div class="slide-counter">3 / 9</div>
+                <div class="slide-counter">3 / 10</div>
                 <h2>Basic Authentication - My Understanding</h2>
                 <div class="key-learning">
                     <h4>What I Learned:</h4>
@@ -473,7 +473,7 @@
 
             <!-- Slide 4: Basic Auth Implementation I Learned -->
             <div class="slide" id="slide-4">
-                <div class="slide-counter">4 / 9</div>
+                <div class="slide-counter">4 / 10</div>
                 <h2>Basic Auth Implementation in Rest Assured</h2>
                 <div class="key-learning">
                     <h4>What I Practiced:</h4>
@@ -524,7 +524,7 @@
 
             <!-- Slide 5: OAuth 2.0 - What I Learned -->
             <div class="slide" id="slide-5">
-                <div class="slide-counter">5 / 9</div>
+                <div class="slide-counter">5 / 10</div>
                 <h2>OAuth 2.0 - My Understanding</h2>
                 <div class="key-learning">
                     <h4>What I Discovered:</h4>
@@ -570,7 +570,7 @@
 
             <!-- Slide 6: OAuth Implementation I Practiced -->
             <div class="slide" id="slide-6">
-                <div class="slide-counter">6 / 9</div>
+                <div class="slide-counter">6 / 10</div>
                 <h2>OAuth 2.0 Implementation in Rest Assured</h2>
                 <div class="key-learning">
                     <h4>Implementation Approach I Learned:</h4>
@@ -609,7 +609,7 @@
 
             <!-- Slide 7: Comparison Analysis I Conducted -->
             <div class="slide" id="slide-7">
-                <div class="slide-counter">7 / 9</div>
+                <div class="slide-counter">7 / 10</div>
                 <h2>Comparative Analysis - My Findings</h2>
                 <div class="key-learning">
                     <h4>Analysis Framework I Used:</h4>
@@ -664,7 +664,7 @@
 
             <!-- Slide 8: Token Acquisition Process I Learned -->
             <div class="slide" id="slide-8">
-                <div class="slide-counter">8 / 9</div>
+                <div class="slide-counter">8 / 10</div>
                 <h2>OAuth Token Acquisition - My Implementation</h2>
                 <div class="key-learning">
                     <h4>Process I Understood:</h4>
@@ -718,9 +718,75 @@
                 </div>
             </div>
 
-            <!-- Slide 9: Conclusion & Reflection -->
+            <!-- Slide 9: POJO Classes in RestAssured -->
             <div class="slide" id="slide-9">
-                <div class="slide-counter">9 / 9</div>
+                <div class="slide-counter">9 / 10</div>
+                <h2>POJO Classes in RestAssured - My Implementation</h2>
+                <div class="key-learning">
+                    <h4>Concept I Understood:</h4>
+                    <p>
+                        I learned how to use Plain Old Java Objects (POJOs) in
+                        RestAssured for API automation, ensuring structured and
+                        maintainable test data representation.
+                    </p>
+                </div>
+                <div class="code-demonstration">
+                    <pre><span class="comment">// POJO Class for API Request Payload</span>
+<span class="keyword">public class</span> User {
+    <span class="keyword">private String</span> name;
+    <span class="keyword">private int</span> age;
+    <span class="keyword">private String</span> email;
+
+    <span class="comment">// Constructor</span>
+    <span class="keyword">public</span> User(<span class="keyword">String</span> name, <span class="keyword">int</span> age, <span class="keyword">String</span> email) {
+        <span class="keyword">this</span>.name = name;
+        <span class="keyword">this</span>.age = age;
+        <span class="keyword">this</span>.email = email;
+    }
+
+    <span class="comment">// Getters and Setters</span>
+    <span class="keyword">public String</span> getName() { <span class="keyword">return</span> name; }
+    <span class="keyword">public void</span> setName(<span class="keyword">String</span> name) { <span class="keyword">this</span>.name = name; }
+
+    <span class="keyword">public int</span> getAge() { <span class="keyword">return</span> age; }
+    <span class="keyword">public void</span> setAge(<span class="keyword">int</span> age) { <span class="keyword">this</span>.age = age; }
+
+    <span class="keyword">public String</span> getEmail() { <span class="keyword">return</span> email; }
+    <span class="keyword">public void</span> setEmail(<span class="keyword">String</span> email) { <span class="keyword">this</span>.email = email; }
+}
+
+<span class="comment">// Using POJO in RestAssured Request</span>
+User user = <span class="keyword">new</span> User(<span class="string">"John Doe"</span>, <span class="string">30</span>, <span class="string">"john.doe@example.com"</span>);
+
+<span class="method">given</span>()
+    .<span class="method">contentType</span>(<span class="string">"application/json"</span>)
+    .<span class="method">body</span>(user)
+    .<span class="method">when</span>()
+    .<span class="method">post</span>(<span class="string">"/api/users"</span>)
+    .<span class="method">then</span>()
+    .<span class="method">statusCode</span>(<span class="string">201</span>);</pre>
+                </div>
+                <div class="practical-example">
+                    <h4>Key Learning:</h4>
+                    <p>
+                        POJO classes help in structuring API request payloads
+                        and responses while improving maintainability and code
+                        readability.
+                    </p>
+                    <br />
+                    <p>
+                        In RestAssured, POJO classes allow seamless conversion
+                        between Java objects and JSON, making API test scripts
+                        more efficient. By defining getters, setters, and
+                        constructors, we can instantiate objects dynamically and
+                        reuse them across test cases.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 10: Conclusion & Reflection -->
+            <div class="slide" id="slide-10">
+                <div class="slide-counter">10 / 10</div>
                 <div class="conclusion-section">
                     <h2>Learning Summary & Reflection</h2>
                     <div class="key-learning">
