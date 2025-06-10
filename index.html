@@ -347,7 +347,7 @@
         <div class="presentation-container">
             <!-- Slide 1: Title & Introduction -->
             <div class="slide active" id="slide-1">
-                <div class="slide-counter">1 / 10</div>
+                <div class="slide-counter">1 / 11</div>
                 <div class="student-info">Learning Presentation</div>
                 <h1>REST API Authentication Methods</h1>
                 <div class="course-info">
@@ -389,7 +389,7 @@
 
             <!-- Slide 2: Understanding Authentication Fundamentals -->
             <div class="slide" id="slide-2">
-                <div class="slide-counter">2 / 10</div>
+                <div class="slide-counter">2 / 11</div>
                 <h2>What I Understood About API Authentication</h2>
                 <div class="key-learning">
                     <h4>Core Concept Learned:</h4>
@@ -431,7 +431,7 @@
 
             <!-- Slide 3: Basic Authentication - What I Learned -->
             <div class="slide" id="slide-3">
-                <div class="slide-counter">3 / 10</div>
+                <div class="slide-counter">3 / 11</div>
                 <h2>Basic Authentication - My Understanding</h2>
                 <div class="key-learning">
                     <h4>What I Learned:</h4>
@@ -473,7 +473,7 @@
 
             <!-- Slide 4: Basic Auth Implementation I Learned -->
             <div class="slide" id="slide-4">
-                <div class="slide-counter">4 / 10</div>
+                <div class="slide-counter">4 / 11</div>
                 <h2>Basic Auth Implementation in Rest Assured</h2>
                 <div class="key-learning">
                     <h4>What I Practiced:</h4>
@@ -524,7 +524,7 @@
 
             <!-- Slide 5: OAuth 2.0 - What I Learned -->
             <div class="slide" id="slide-5">
-                <div class="slide-counter">5 / 10</div>
+                <div class="slide-counter">5 / 11</div>
                 <h2>OAuth 2.0 - My Understanding</h2>
                 <div class="key-learning">
                     <h4>What I Discovered:</h4>
@@ -570,7 +570,7 @@
 
             <!-- Slide 6: OAuth Implementation I Practiced -->
             <div class="slide" id="slide-6">
-                <div class="slide-counter">6 / 10</div>
+                <div class="slide-counter">6 / 11</div>
                 <h2>OAuth 2.0 Implementation in Rest Assured</h2>
                 <div class="key-learning">
                     <h4>Implementation Approach I Learned:</h4>
@@ -609,7 +609,7 @@
 
             <!-- Slide 7: Comparison Analysis I Conducted -->
             <div class="slide" id="slide-7">
-                <div class="slide-counter">7 / 10</div>
+                <div class="slide-counter">7 / 11</div>
                 <h2>Comparative Analysis - My Findings</h2>
                 <div class="key-learning">
                     <h4>Analysis Framework I Used:</h4>
@@ -664,7 +664,7 @@
 
             <!-- Slide 8: Token Acquisition Process I Learned -->
             <div class="slide" id="slide-8">
-                <div class="slide-counter">8 / 10</div>
+                <div class="slide-counter">8 / 11</div>
                 <h2>OAuth Token Acquisition - My Implementation</h2>
                 <div class="key-learning">
                     <h4>Process I Understood:</h4>
@@ -720,7 +720,7 @@
 
             <!-- Slide 9: POJO Classes in RestAssured -->
             <div class="slide" id="slide-9">
-                <div class="slide-counter">9 / 10</div>
+                <div class="slide-counter">9 / 11</div>
                 <h2>POJO Classes in RestAssured - My Implementation</h2>
                 <div class="key-learning">
                     <h4>Concept I Understood:</h4>
@@ -784,9 +784,59 @@ User user = <span class="keyword">new</span> User(<span class="string">"John Doe
                 </div>
             </div>
 
+            <!-- Slide 10: Difference and Relation Between POJO and DTO -->
+            <div class="slide" id="slide-10">
+                <div class="slide-counter">10 / 11</div>
+                <h2>Difference and Relation Between POJO and DTO</h2>
+                <div class="key-learning">
+                    <h4>Concept I Understood:</h4>
+                    <p>
+                        POJOs are simple Java objects used to represent data
+                        generally, while DTOs are specialized POJOs designed
+                        specifically to transfer data between layers or systems,
+                        such as in API requests and responses.
+                    </p>
+                </div>
+                <div class="code-demonstration">
+                    <pre><span class="comment">// POJO: General data object with all fields</span>
+<span class="keyword">public class</span> User {
+    <span class="keyword">private int</span> id;
+    <span class="keyword">private String</span> username;
+    <span class="keyword">private String</span> password; <span class="comment">// sensitive data</span>
+    <span class="keyword">private String</span> email;
+
+    <span class="comment">// Getters and setters omitted for brevity</span>
+}
+
+<span class="comment">// DTO: Data Transfer Object with limited fields for API</span>
+<span class="keyword">public class</span> UserDTO {
+    <span class="keyword">private String</span> username;
+    <span class="keyword">private String</span> email;
+
+    <span class="comment">// Getters and setters omitted for brevity</span>
+}</pre>
+                </div>
+                <div class="practical-example">
+                    <h4>Key Learning:</h4>
+                    <p>
+                        While both POJOs and DTOs are Java classes with fields
+                        and accessors, DTOs serve the specific role of
+                        transferring only necessary data, often hiding sensitive
+                        information and decoupling internal models from external
+                        API contracts.
+                    </p>
+                    <br />
+                    <p>
+                        In RestAssured API automation, POJOs often act as DTOs
+                        when used for request and response payloads, enabling
+                        clean, maintainable, and secure data handling.
+                    </p>
+                </div>
+            </div>
+
             <!-- Slide 10: Conclusion & Reflection -->
             <div class="slide" id="slide-10">
-                <div class="slide-counter">10 / 10</div>
+                <div class="slide-counter">10 / 11</div>
                 <div class="conclusion-section">
                     <h2>Learning Summary & Reflection</h2>
                     <div class="key-learning">
